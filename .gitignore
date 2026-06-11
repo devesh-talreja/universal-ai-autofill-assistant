@@ -1,0 +1,51 @@
+# Gradle files
+.gradle/
+build/
+app/build/
+
+# IntelliJ IDEA / Android Studio files
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+local.properties
+
+# Android Build Outputs
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+
+# Keystores & Signing Secrets — NEVER COMMIT
+*.jks
+*.keystore
+keystore.properties
+release-keystore.properties
+releaseKey.properties
+
+# Secrets and API Keys
+google-services.json
+google-services-desktop.json
+*.p8
+*.p12
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Crashlytics/Firebase generated files
+app/crashlytics/
+app/google-services.json
+
+# Local Kotlin files
+.kotlin/

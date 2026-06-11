@@ -1,0 +1,131 @@
+[
+  {
+    "id": 0,
+    "profileName": "My Info",
+    "fullName": "Jane Doe",
+    "email": "janedoe@example.com",
+    "phoneNumber": "+15550199",
+    "address": "123 Innovation Way, Tech District, CA 94016",
+    "customFields": {
+      "githubUrl": "https://github.com/janedoe",
+      "preferredPronouns": "She/Her",
+      "emergencyContactName": "John Doe",
+      "emergencyContactPhone": "+15550188"
+    },
+    "sections": [
+      {
+        "id": "8c7f9d8a-92e1-4c12-8bbd-d41a87b5a101",
+        "name": "Identification Cards",
+        "icon": "🆔",
+        "fields": [
+          {
+            "id": "a9b1c2d3-e4f5-4a6b-8c7d-e8f90a1b2c3d",
+            "label": "Passport Number",
+            "value": "A1234567"
+          },
+          {
+            "id": "b0c1d2e3-f4a5-4b6c-8d7e-f9a0b1c2d3e4",
+            "label": "National Identity Card",
+            "value": "9876-5432-1098"
+          },
+          {
+            "id": "c1d2e3f4-a5b6-4c7d-8e9f-0a1b2c3d4e5f",
+            "label": "Tax Registration Number",
+            "value": "TAX-998877"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "profileName": "Professional Profile",
+    "fullName": "Jane Doe",
+    "email": "jane.work@example.tech",
+    "phoneNumber": "+15550299",
+    "address": "456 Enterprise Boulevard, Suite 300, SF, CA 94107",
+    "customFields": {
+      "linkedinUrl": "https://linkedin.com/in/janedoe",
+      "portfolioUrl": "https://janedoe.dev",
+      "yearsOfExperience": "5",
+      "currentRole": "Senior Software Engineer",
+      "primarySkills": "Kotlin, Android, Jetpack Compose, SQLite, Java, Git"
+    },
+    "sections": [
+      {
+        "id": "7b8f9e0a-1a2b-3c4d-5e6f-7a8b9c0d1e2f",
+        "name": "Employment Details",
+        "icon": "💼",
+        "fields": [
+          {
+            "id": "d2e3f4a5-b6c7-4d8e-9f0a-1b2c3d4e5f6a",
+            "label": "Current Employer",
+            "value": "Apex Technologies Ltd"
+          },
+          {
+            "id": "e3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b",
+            "label": "Notice Period",
+            "value": "30 Days"
+          },
+          {
+            "id": "f4a5b6c7-d8e9-4f0a-1b2c-3d4e5f6a7b8c",
+            "label": "Expected CTC",
+            "value": "$120,000"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 0,
+    "profileName": "Academic Profile",
+    "fullName": "Jane Doe",
+    "email": "jane.edu@university.edu",
+    "phoneNumber": "+15550199",
+    "address": "123 Innovation Way, Tech District, CA 94016",
+    "customFields": {
+      "universityRollNo": "CS2022-8871",
+      "graduationYear": "2026",
+      "currentGPA": "3.92"
+    },
+    "sections": [
+      {
+        "id": "3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d",
+        "name": "High School Marksheet",
+        "icon": "🎓",
+        "fields": [
+          {
+            "id": "0b1c2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e",
+            "label": "Board Name",
+            "value": "National High School Board"
+          },
+          {
+            "id": "1c2d3e4f-5a6b-7c8d-9e0f-1a2b3c4d5e6f",
+            "label": "Roll Number",
+            "value": "HS-2022-99881"
+          },
+          {
+            "id": "2d3e4f5a-6b7c-8d9e-0f1a-2b3c4d5e6f7a",
+            "label": "Mathematics Score",
+            "value": "98"
+          },
+          {
+            "id": "3d4e5f6a-7b8c-9d0e-1f2a-3b4c5d6e7f8a",
+            "label": "Science Score",
+            "value": "95"
+          },
+          {
+            "id": "4e5f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8a9b",
+            "label": "English Score",
+            "value": "92"
+          },
+          {
+            "id": "5f6a7b8c-9d0e-1f2a-3b4c-5d6e7f8a9b0c",
+            "label": "Grand Total Marks",
+            "value": "285 / 300"
+          }
+        ]
+      }
+    ]
+  }
+]
