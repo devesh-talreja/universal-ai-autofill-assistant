@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Smartautofiller" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Splash screen theme - fullscreen, no flickering -->
+    <style name="Theme.Smartautofiller.Splash" parent="Theme.Smartautofiller">
+        <item name="android:windowBackground">@color/splash_bg</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">#7F77DD</item>
+        <item name="android:navigationBarColor">#378ADD</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+</resources>

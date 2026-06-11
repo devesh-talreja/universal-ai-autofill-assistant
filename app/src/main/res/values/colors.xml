@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="splash_bg">#7F77DD</color>
+    <color name="purple_start">#7F77DD</color>
+    <color name="blue_end">#378ADD</color>
+    <color name="green_accent">#1D9E75</color>
+</resources>
