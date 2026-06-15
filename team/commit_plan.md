@@ -1,6 +1,6 @@
-# Git Upload & Commit Plan
+# Git Upload & Commit Plan (Modular Structure)
 
-This document provides a realistic, multi-phase plan to upload the project code gradually to GitHub. It simulates an active development timeline with contributions spread across your 4 team members.
+This document provides a realistic, multi-phase plan to upload the project code gradually to GitHub. It simulates an active development timeline with contributions spread across your 4 team members, matching the restructured repository layout.
 
 ---
 
@@ -46,160 +46,160 @@ git commit -m "commit message" --author="Member Name <member.email@example.com>"
 * **Branch:** `develop`
 * **Command:**
   ```bash
-  git add .gitignore LICENSE README.md .github/
+  git add .gitignore LICENSE README.md .github/ CONTRIBUTING.md .env.example
   git commit -m "chore: initial repository configuration and gitignore setup" --author="Member 1 <member1@example.com>"
-  ```
-
-#### Commit 1.2
-* **Author:** Member 3 `<member3@example.com>`
-* **Branch:** `develop`
-* **Command:**
-  ```bash
-  git add build.gradle.kts settings.gradle.kts gradle.properties local.properties gradlew gradlew.bat
-  git commit -m "build: configure multi-module gradle system and dependencies catalog" --author="Member 3 <member3@example.com>"
-  ```
-
-#### Commit 1.3
-* **Author:** Member 1 `<member1@example.com>`
-* **Branch:** `develop`
-* **Command:**
-  ```bash
-  git add app/src/main/AndroidManifest.xml app/src/main/res/xml/
-  git commit -m "setup: configure android manifest and accessibility service metadata" --author="Member 1 <member1@example.com>"
   ```
 
 ---
 
-### 🎨 Phase 2: Frontend & Design Foundation
-*Focus: Setting up Compose widgets, themes, onboarding screens, and launcher activities.*
+### 🎨 Phase 2: Frontend & Design Foundation (UI)
+*Focus: Setting up user interface files, colors, themes, layout XML views, and onboarding screens.*
 
 #### Commit 2.1
 * **Author:** Member 2 `<member2@example.com>`
-* **Branch:** `feature/ui-foundation` (created from `develop` via `git checkout -b feature/ui-foundation`)
+* **Branch:** `feature/ui-onboarding` (created from `develop` via `git checkout -b feature/ui-onboarding`)
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/ui/theme/
-  git commit -m "ui: implement custom dark/light theme configurations and color palettes" --author="Member 2 <member2@example.com>"
+  git add frontend/Color.kt frontend/Theme.kt frontend/Type.kt
+  git commit -m "ui: implement custom dark/light theme configurations and typography guidelines" --author="Member 2 <member2@example.com>"
   ```
 
 #### Commit 2.2
 * **Author:** Member 2 `<member2@example.com>`
-* **Branch:** `feature/ui-foundation`
+* **Branch:** `feature/ui-onboarding`
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/ui/SplashActivity.kt app/src/main/java/com/example/smartautofiller/ui/OnboardingActivity.kt
-  git commit -m "ui: create splash routing and 4-page onboarding features tour activity" --author="Member 2 <member2@example.com>"
+  git add frontend/layout_floating_bubble.xml frontend/layout_profile_selector.xml frontend/layout_profile_item.xml frontend/autofill_item.xml
+  git commit -m "ui: design floating bubble overlay layouts and popup selector view templates" --author="Member 2 <member2@example.com>"
   ```
 
 #### Commit 2.3
 * **Author:** Member 2 `<member2@example.com>`
-* **Branch:** `feature/ui-foundation`
+* **Branch:** `feature/ui-onboarding`
+* **Command:**
+  ```bash
+  git add frontend/SplashActivity.kt frontend/OnboardingActivity.kt frontend/UserInfoActivity.kt frontend/FeaturesActivity.kt frontend/PrivacyPolicyActivity.kt
+  git commit -m "ui: create onboarding flows, splash launcher, and features tour widgets" --author="Member 2 <member2@example.com>"
+  ```
+
+#### Commit 2.4
+* **Author:** Member 2 `<member2@example.com>`
+* **Branch:** `feature/ui-onboarding`
 * **Command:**
   ```bash
   # Merge feature branch back into develop
   git checkout develop
-  git merge feature/ui-foundation
-  git branch -d feature/ui-foundation
+  git merge feature/ui-onboarding
+  git branch -d feature/ui-onboarding
   ```
 
 ---
 
-### 🗄️ Phase 3: Storage & Security Implementations
-*Focus: Room models, type converters, secure preferences, and PIN lockout locks.*
+### 🗄️ Phase 3: Backend & Security Integration
+*Focus: Accessibility service handlers, local storage interfaces, and biometric lock bounds.*
 
 #### Commit 3.1
 * **Author:** Member 3 `<member3@example.com>`
-* **Branch:** `feature/security-storage` (created from `develop`)
+* **Branch:** `feature/backend-engine` (created from `develop` via `git checkout -b feature/backend-engine`)
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/data/
-  git commit -m "db: implement UserProfile Room entities and CustomFields converters" --author="Member 3 <member3@example.com>"
+  git add backend/UserProfile.kt backend/UserProfileDao.kt backend/Converters.kt backend/AppDatabase.kt
+  git commit -m "db: implement user profiles database schema, daos, and type converters" --author="Member 3 <member3@example.com>"
   ```
 
 #### Commit 3.2
 * **Author:** Member 4 `<member4@example.com>`
-* **Branch:** `feature/security-storage`
+* **Branch:** `feature/backend-engine`
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/security/PinManager.kt app/src/main/java/com/example/smartautofiller/service/CopyReceiver.kt
-  git commit -m "security: establish PinManager validator and 30s clipboard auto-clear receiver" --author="Member 4 <member4@example.com>"
+  git add backend/PinManager.kt backend/CopyReceiver.kt
+  git commit -m "security: establish PinManager validations, lockout intervals, and clipboard clears" --author="Member 4 <member4@example.com>"
   ```
 
 #### Commit 3.3
-* **Author:** Member 3 `<member3@example.com>`
-* **Branch:** `feature/security-storage`
+* **Author:** Member 1 `<member1@example.com>`
+* **Branch:** `feature/backend-engine`
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/viewmodel/ProfileViewModel.kt
-  git commit -m "db: create profile ViewModel with backup export/import configurations" --author="Member 3 <member3@example.com>"
+  git add backend/SmartAccessibilityService.kt backend/SmartAutofillService.kt backend/AiFillTileService.kt
+  git commit -m "feat: implement smart accessibility form-matching traverser and quick settings tile" --author="Member 1 <member1@example.com>"
   ```
 
 #### Commit 3.4
-* **Author:** Member 4 `<member4@example.com>`
-* **Branch:** `feature/security-storage`
+* **Author:** Member 1 `<member1@example.com>`
+* **Branch:** `feature/backend-engine`
 * **Command:**
   ```bash
-  # Merge security branch back into develop
+  git add backend/QuickCopyService.kt
+  git commit -m "feat: design QuickCopy persistent foreground notification panel actions" --author="Member 1 <member1@example.com>"
+  ```
+
+#### Commit 3.5
+* **Author:** Member 4 `<member4@example.com>`
+* **Branch:** `feature/backend-engine`
+* **Command:**
+  ```bash
+  # Merge backend branch back into develop
   git checkout develop
-  git merge feature/security-storage
-  git branch -d feature/security-storage
+  git merge feature/backend-engine
+  git branch -d feature/backend-engine
   ```
 
 ---
 
-### ⚡ Phase 4: Core Engine & Machine Learning
-*Focus: Accessibility service scraping, CameraX capture, and local ML Kit processing.*
+### 📷 Phase 4: Core Wiring & ML Operations
+*Focus: Camera scanning, ViewModel integration, main compose layouts, and project dependencies.*
 
 #### Commit 4.1
-* **Author:** Member 1 `<member1@example.com>`
-* **Branch:** `feature/autofill-engine` (created from `develop`)
+* **Author:** Member 3 `<member3@example.com>`
+* **Branch:** `feature/core-integration` (created from `develop` via `git checkout -b feature/core-integration`)
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/service/SmartAccessibilityService.kt
-  git commit -m "feat: establish accessibility node hierarchy traverser and form-matching framework" --author="Member 1 <member1@example.com>"
+  git add frontend/CameraActivity.kt
+  git commit -m "ml: integrate CameraX frame capture and document OCR text parser" --author="Member 3 <member3@example.com>"
   ```
 
 #### Commit 4.2
-* **Author:** Member 3 `<member3@example.com>`
-* **Branch:** `feature/autofill-engine`
+* **Author:** Member 1 `<member1@example.com>`
+* **Branch:** `feature/core-integration`
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/ui/CameraActivity.kt
-  git commit -m "feat: implement CameraX frame capture and document OCR text parser" --author="Member 3 <member3@example.com>"
+  git add core/build.gradle.kts core/settings.gradle.kts core/gradle.properties core/AppDatabase.kt core/Converters.kt core/UserProfile.kt core/UserProfileDao.kt
+  git commit -m "build: configure core module dependencies, view model catalogs, and databases" --author="Member 1 <member1@example.com>"
   ```
 
 #### Commit 4.3
-* **Author:** Member 1 `<member1@example.com>`
-* **Branch:** `feature/autofill-engine`
+* **Author:** Member 2 `<member2@example.com>`
+* **Branch:** `feature/core-integration`
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/service/AiFillTileService.kt app/src/main/java/com/example/smartautofiller/service/SmartAutofillService.kt
-  git commit -m "feat: configure quick settings tile toggle and secondary autofill framework" --author="Member 1 <member1@example.com>"
+  git add core/MainActivity.kt core/ProfileViewModel.kt
+  git commit -m "ui: wire MainActivity compose layouts with ProfileViewModel storage flows" --author="Member 2 <member2@example.com>"
   ```
 
 #### Commit 4.4
 * **Author:** Member 1 `<member1@example.com>`
-* **Branch:** `feature/autofill-engine`
+* **Branch:** `feature/core-integration`
 * **Command:**
   ```bash
-  # Merge engine branch back into develop
+  # Merge core branch back into develop
   git checkout develop
-  git merge feature/autofill-engine
-  git branch -d feature/autofill-engine
+  git merge feature/core-integration
+  git branch -d feature/core-integration
   ```
 
 ---
 
-### 🧪 Phase 5: Verification, Docs & final Polish
-*Focus: Compose views integration, test plans, database schema updates, and validation logs.*
+### 🧪 Phase 5: Verification, Tests & Final Documentation
+*Focus: Test suites, sample JSON mock tables, and documentation indices.*
 
 #### Commit 5.1
-* **Author:** Member 2 `<member2@example.com>`
+* **Author:** Member 4 `<member4@example.com>`
 * **Branch:** `develop`
 * **Command:**
   ```bash
-  git add app/src/main/java/com/example/smartautofiller/MainActivity.kt app/src/main/java/com/example/smartautofiller/ui/UserInfoActivity.kt app/src/main/java/com/example/smartautofiller/ui/FeaturesActivity.kt app/src/main/java/com/example/smartautofiller/ui/PrivacyPolicyActivity.kt
-  git commit -m "ui: integrate MainActivity profile dashboard and custom form selector popups" --author="Member 2 <member2@example.com>"
+  git add database/schema.sql database/sample_data.json database/README.md
+  git commit -m "docs: compile SQLite schemas and profile backup mock JSON data sheets" --author="Member 4 <member4@example.com>"
   ```
 
 #### Commit 5.2
@@ -207,11 +207,20 @@ git commit -m "commit message" --author="Member Name <member.email@example.com>"
 * **Branch:** `develop`
 * **Command:**
   ```bash
-  git add database/ docs/ screenshots/ tests/ team/
-  git commit -m "docs: finalize developer architecture plans, verification results, and QA test matrices" --author="Member 4 <member4@example.com>"
+  git add tests/Test_Cases.md tests/Test_Results.md screenshots/README.md
+  git commit -m "test: catalog functional QA matrices, manual validation tests, and device performance runs" --author="Member 4 <member4@example.com>"
   ```
 
 #### Commit 5.3
+* **Author:** Member 4 `<member4@example.com>`
+* **Branch:** `develop`
+* **Command:**
+  ```bash
+  git add docs/Project_Documentation.md docs/Installation_Guide.md docs/User_Manual.md docs/Technical_Documentation.md docs/System_Architecture.md docs/API_Documentation.md docs/README.md docs/diagrams/README.md
+  git commit -m "docs: finalize user guides, system architecture diagrams, and internal API documentation" --author="Member 4 <member4@example.com>"
+  ```
+
+#### Commit 5.4
 * **Author:** Member 1 `<member1@example.com>`
 * **Branch:** `main`
 * **Command:**

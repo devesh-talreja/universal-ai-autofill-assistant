@@ -5,7 +5,7 @@ An offline-first, intelligent Android application designed to automate form-fill
 ---
 
 ## 📖 Introduction
-Form filling is a ubiquitous task. Whether registering for academic courses, applying for jobs, registering on government portals, or purchasing items on e-commerce sites, users are constantly forced to input identical personal, academic, and professional details. 
+Form filling is a ubiquitous task. Whether registering for academic courses, applying for jobs, registering on portals, or purchasing items on e-commerce sites, users are constantly forced to input identical personal, academic, and professional details. 
 
 **Universal AI Autofill Assistant** eliminates this repetition. By storing personal data locally in structured profiles with custom sections (e.g., identity cards, academic marksheets), the app traverses the active screen's layout hierarchy, matches labels using string metrics and translation heuristics, and populates the forms instantly via a single-tap floating overlay.
 
@@ -15,7 +15,7 @@ Form filling is a ubiquitous task. Whether registering for academic courses, app
 1. **Redundant Data Entry:** Repeated entry of names, emails, registration numbers, addresses, and subject-wise grades across numerous platforms.
 2. **Context Fragmentation:** Standard autofill APIs (like Android Autofill or Google Autofill) only work in fields that explicitly declare their content types and are unsupported in many third-party apps, custom web browsers, and hybrid WebViews.
 3. **Data Privacy Concerns:** Uploading highly sensitive information (like identification numbers, bank accounts, or grades) to cloud-based autofill extensions exposes users to privacy breaches.
-4. **Language Barriers:** Forms in multi-lingual countries are often presented in regional languages, rendering standard English-focused autofill tools ineffective.
+4. **Language Barriers:** Forms are often presented in regional languages, rendering standard English-focused autofill tools ineffective.
 
 ---
 
@@ -33,9 +33,12 @@ Form filling is a ubiquitous task. Whether registering for academic courses, app
 * **Smart Hierarchy Parsing:** Accessibility Service-based node traversal that scans field labels, hints, and content descriptions dynamically.
 * **Document Scanner (OCR):** CameraX interface integrated with Google ML Kit Text Recognition to scan ID cards (e.g., PAN, Aadhaar, Driver License, Passport) and academic marksheets to automatically construct profile sections.
 * **Multi-Language Support:** Local Language ID and Translation models that translate regional field labels to English in real-time, allowing English profiles to fill regional language forms.
+* **Dropdown Option Matching:** Automates matching and selection of radio buttons, checkboxes, and standard spinner dropdown lists (e.g. Gender, State, Country, DOB spinners).
+* **WebView Form Filling:** Traverses and populates inputs loaded inside hybrid WebViews, in-app browsers, and standard Chrome contexts.
 * **Text Expansion Shortcuts:** Custom abbreviations (e.g., typing `name-` or `email-` in a field followed by a bubble tap) to perform instant inline text expansions.
-* **Intelligent Auto-Clicks:** Automated radio button and checkbox selection for fields like country, state, gender, and date-of-birth.
-* **Robust Security:** AES-256 protected credentials via `EncryptedSharedPreferences`, biometrics validation (`BiometricPrompt`), root-detection checks, and automatic 30-second clipboard clearing.
+* **Quick Copy Panel:** Foreground notification service (`QuickCopyService`) displaying quick buttons to copy Name, Email, and Phone data directly from the system tray.
+* **Local Backups:** Complete JSON profile import and export utility for seamless data transfers between devices.
+* **Robust Security Sandbox:** AES-256 protected credentials via `EncryptedSharedPreferences`, biometrics validation (`BiometricPrompt`), local root-detection checks, and automatic 30-second clipboard clearing.
 
 ---
 
@@ -81,15 +84,67 @@ The system operates strictly on-device, split into clean layers:
 
 ---
 
+## 📊 System Architecture Diagrams
+
+These flowcharts outline the application's runtime cycles and parsing engines (located in [System Architecture Docs](file:///docs/System_Architecture.md)):
+
+<p align="center">
+  <img src="docs/diagrams/system_lifecycle.png" width="650" alt="System Lifecycle Diagram" /><br>
+  <em>Figure 1: Global Application Security & Verification Lifecycle</em>
+</p>
+
+<p align="center">
+  <img src="docs/diagrams/autofill_pipeline.png" width="650" alt="Autofill Pipeline Diagram" /><br>
+  <em>Figure 2: Smart Accessibility Service Traversal and Matching Pipeline</em>
+</p>
+
+<p align="center">
+  <img src="docs/diagrams/camera_ocr.png" width="650" alt="Camera OCR Diagram" /><br>
+  <em>Figure 3: CameraX Frame Capture and ML Kit Document Parsing Pipeline</em>
+</p>
+
+---
+
 ## 📁 Repository Structure
 ```
 universal-ai-autofill-assistant/
 ├── .github/                  # PR templates and issue configurations
-├── app/                      # Main Android source module
-│   └── src/
-│       ├── main/             # App source code, assets, and AndroidManifest
-│       ├── test/             # Local JVM unit tests
-│       └── androidTest/      # Device-instrumentation tests
+│   └── PULL_REQUEST_TEMPLATE.md
+├── backend/                  # Services, security engines, and background tasks
+│   ├── AiFillTileService.kt
+│   ├── AppDatabase.kt
+│   ├── Converters.kt
+│   ├── CopyReceiver.kt
+│   ├── PinManager.kt
+│   ├── QuickCopyService.kt
+│   ├── SmartAccessibilityService.kt
+│   ├── SmartAutofillService.kt
+│   ├── UserProfile.kt
+│   └── UserProfileDao.kt
+├── core/                     # Application lifecycle, main screens, database setup, and configurations
+│   ├── AppDatabase.kt
+│   ├── Converters.kt
+│   ├── MainActivity.kt
+│   ├── ProfileViewModel.kt
+│   ├── UserProfile.kt
+│   ├── UserProfileDao.kt
+│   ├── build.gradle.kts
+│   ├── gradle.properties
+│   └── settings.gradle.kts
+├── frontend/                 # UI layouts, colors, theme typography, and Compose Activities
+│   ├── CameraActivity.kt
+│   ├── Color.kt
+│   ├── FeaturesActivity.kt
+│   ├── OnboardingActivity.kt
+│   ├── PrivacyPolicyActivity.kt
+│   ├── SplashActivity.kt
+│   ├── Theme.kt
+│   ├── Type.kt
+│   ├── UserInfoActivity.kt
+│   ├── autofill_item.xml
+│   ├── layout_floating_bubble.xml
+│   ├── layout_profile_item.xml
+│   └── layout_profile_selector.xml
 ├── database/                 # SQL schemas and sample import profiles
 ├── docs/                     # User, technical, and architectural docs
 ├── screenshots/              # UI screens & demonstrations
@@ -102,24 +157,20 @@ universal-ai-autofill-assistant/
 
 ## 🚀 Installation & Setup
 
-### Prerequisites
-1. **Android Studio** (Hedgehog 2023.1.1 or newer recommended)
-2. **JDK 11** or higher
-3. **Android SDK Platform** (compileSdk 36)
-4. A physical Android device (API 26+) with USB Debugging enabled. *(Note: Accessibility overlays and Camera features do not run reliably on virtual Emulators).*
+### 📲 Quick Sideload Installation (For Mobile Evaluators)
+Installing and running the app takes less than 2 minutes directly on your phone:
+1. **Download the APK:** Copy the compiled release file onto your Android device: **[app-release.apk](file:///c:/Users/talre/OneDrive/Documents/new/universal-ai-autofill-assistant/app/release/app-release.apk)**.
+2. **Install:** Tap the APK file to install it. If prompted with a "Blocked by Play Protect" or "Unknown Source" warning, click **"Install Anyway"**.
+3. **Configure PIN:** Open the app, follow the onboarding screens, and define a secure **4-digit PIN** to protect your profile details.
+4. **Grant Permissions:** Enable **Display Over Other Apps (Overlay)** and toggle **AI Autofill** to **ON** inside **Settings ➔ Accessibility ➔ Installed Apps**.
 
-### Local Development Setup
-1. Clone the repository to your local drive.
-2. Open Android Studio and choose **File ➔ Open**, pointing to the cloned root directory.
+### 💻 Developer Setup (Build from Source)
+1. Open Android Studio (Hedgehog 2023.1.1 or newer recommended) with compileSdk 36.
+2. Choose **File ➔ Open**, pointing to the cloned root directory of this repository.
 3. Gradle will synchronize automatically.
-4. Set up environment properties by creating a `.env` file from the [Template](file:///.env.example).
-5. Build the application: **Build ➔ Make Project**.
-
-### Deployment to Device
-1. Connect your physical Android device via USB.
-2. In Android Studio, select your device from the run configuration target list.
-3. Press **Shift + F10** (or click the green Run button).
-4. On first launch, follow the onboarding wizard to grant **Camera**, **Display Overlay**, and **Accessibility Service** permissions.
+4. Create a `.env` configuration file from the [Template](file:///.env.example) in the root.
+5. Connect your device via USB (verify **USB Debugging** is toggled ON).
+6. Click the green **Run** icon (or press **Shift + F10**) to build and deploy.
 
 ---
 
@@ -135,7 +186,7 @@ The application uses local storage to ensure user data remains private.
 ---
 
 ## 📸 Screenshots & UI Flow
-Below is a outline of the user interface flow:
+Below is an outline of the user interface flow:
 
 | Onboarding Flow | Profile Management | Smart Form Filling |
 | :---: | :---: | :---: |
@@ -158,7 +209,7 @@ The QA process comprises:
 ## 👥 Team & Responsibilities
 This is a 4-member academic team project:
 
-* **[Member 1 Name] (Lead & Integration):** Designed the core Accessibility parsing engine, overlay window interactions, and Quick Settings tile integrations.
+* **[Member 1 Name] (Lead & Integration):** Designed the core Accessibility service parsing engine, overlay window interactions, and Quick Settings tile integrations.
 * **[Member 2 Name] (Frontend Developer):** Constructed the Jetpack Compose pages, onboarding flow widgets, theme configurations, and animations.
 * **[Member 3 Name] (Backend & Storage):** Implemented the local Room SQLite bindings, security modules (Biometrics, PIN verified storage), and local OCR/Language wrappers.
 * **[Member 4 Name] (QA & Deployment Specialist):** Created the test scenarios, checked layouts across device API targets, handled release building, and consolidated documentation.
@@ -168,11 +219,10 @@ This is a 4-member academic team project:
 ---
 
 ## 🔮 Future Enhancements
-* **Dropdown Selection Support:** Integrate automated options-clicking inside native Android spinner components and HTML select menus.
-* **WebView JS Injection:** Standardize autofill in complex banking and secure sandboxed hybrid pages via experimental DOM-level injection.
-* **OTP Detection:** Read verification codes via SMS retriever hooks and insert directly into input boxes.
-* **Database Encrypted Migration:** Re-evaluate page-size compliant SQLite database wrappers once SQLCipher compatibility is restored for Android 16.
-* **Local Backups:** Encrypted backups to Google Drive or local storage utilizing the Android backup engine.
+* **OTP Auto-Detection & Autofill:** Listen to incoming SMS notifications to detect verification codes via SMS Retriever APIs and automatically populate input boxes.
+* **Cloud Sync Integration:** Optional, end-to-end encrypted backup systems to sync profiles with cloud lockers (e.g. Google Drive) securely.
+* **On-Device ML Form Classifier:** Use TensorFlow Lite or custom local weights to predict field matching types based on layout coordinate vectors.
+* **Browser Sync Extension:** Synchronize stored credentials locally with desktop browser overlays over a local Wi-Fi connection.
 
 ---
 

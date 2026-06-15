@@ -90,4 +90,28 @@ Handles camera inputs and text extraction.
 Parses raw text blocks extracted by ML Kit OCR to identify the document type and isolate data fields.
 * **Parameters:**
   * `text`: The raw string of text recognized from the document.
-* **Returns:** A `ScannedData` model containing parsed details (such as names, dates, identification numbers, or marksheet structures).
+* **Returns:** A `ScannedData` model containing parsed details (such as names, dates, identification numbers, or marksheets).
+
+---
+
+## ⚡ 5. Foreground Notification Interface (`QuickCopyService`)
+
+Coordinates the foreground service and notification panel widgets.
+
+### `onStartCommand(intent: Intent, flags: Int, startId: Int): Int`
+Initiates the notification channel and starts the foreground execution cycle, compiling a low-priority ongoing notification.
+
+### `updateNotification()`
+Fetches the primary default user profile from the database asynchronously and populates notification action buttons with the user's name, email, and phone number parameters.
+
+---
+
+## 🔄 6. Type Converters (`Converters`)
+
+Encodes and decodes complex nested types for Room database serialization.
+
+### `fromMap(value: Map<String, String>): String`
+Serializes a Kotlin Map into a JSON formatted string.
+
+### `toMap(value: String): Map<String, String>`
+Deserializes a JSON formatted string back into a Kotlin Map.

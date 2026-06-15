@@ -6,7 +6,7 @@ The Universal AI Autofill Assistant relies on a local, offline-first SQLite data
 
 ## 🏗️ Database Architecture
 
-* **Database Class:** `AppDatabase.kt`
+* **Database Class:** `AppDatabase.kt` (located under `backend/` and `core/` modules)
 * **Version:** `5`
 * **Entities:** `UserProfile` (`user_profiles` table)
 * **DAO:** `UserProfileDao` (handles CRUD operations and exposes reactive `Flow<List<UserProfile>>` data streams)
@@ -30,14 +30,14 @@ The Universal AI Autofill Assistant relies on a local, offline-first SQLite data
 
 ---
 
-## 🔄 Type Converters (`CustomFieldsConverter`)
+## 🔄 Type Converters
 
-SQLite natively supports flat tabular types. To handle complex structural groupings without creating extensive multi-table foreign key constraints that would degrade local lookup latency, Room uses Kotlin Serialization to encode/decode complex properties:
+SQLite natively supports flat tabular types. To handle complex structural groupings without creating extensive multi-table foreign key constraints that would degrade local lookup latency, Room uses Kotlin Serialization to encode/decode complex properties via two converter definitions:
 
-1. **`custom_fields` (Maps):**
+1. **`custom_fields` (Maps) via `Converters` / `CustomFieldsConverter`:**
    * Class Type: `Map<String, String>`
    * Database Representation: Serialized JSON String (e.g. `{"grad_year":"2026", "linkedin":"..."}`)
-2. **`sections` (Nested Structure lists):**
+2. **`sections` (Nested Structure lists) via `CustomFieldsConverter`:**
    * Class Type: `List<ProfileSection>`
    * Database Representation: Serialized JSON Array string containing list items, identifiers, and nested `SectionField` field objects.
 
