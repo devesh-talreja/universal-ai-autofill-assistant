@@ -88,20 +88,97 @@ The system operates strictly on-device, split into clean layers:
 
 These flowcharts outline the application's runtime cycles and parsing engines (located in [System Architecture Docs](file:///docs/System_Architecture.md)):
 
-<p align="center">
-  <img src="docs/diagrams/system_lifecycle.png" width="650" alt="System Lifecycle Diagram" /><br>
-  <em>Figure 1: Global Application Security & Verification Lifecycle</em>
-</p>
+```mermaid
+graph TD
+    Start([Launch App]) --> Splash[SplashActivity]
+    Splash --> PinCheck{PIN Configured?}
+    
+    %% Security Authorization
+    PinCheck -- Yes --> SecurityVerify{Verify Identity}
+    SecurityVerify --> |Biometric/PIN Screen| VerifySuccess{Authorized?}
+    VerifySuccess -- No --> SecurityVerify
+    VerifySuccess -- Yes --> MainApp[MainActivity]
+    
+    %% Onboarding Journey
+    PinCheck -- No --> Tour[OnboardingActivity]
+    Tour --> UserInfo[UserInfoActivity]
+    UserInfo --> PinSet[PinSetupScreen]
+    PinSet --> MainApp
+    
+    %% Dashboard Options
+    MainApp --> Profiles[Profile Management]
+    MainApp --> Scanner[CameraActivity]
+    MainApp --> ServiceToggle[Toggle Accessibility Overlay]
+    
+    Scanner --> |ML Kit OCR Parsing| ScanResult[Profile Section Creation]
+    ScanResult --> Profiles
+    
+    ServiceToggle --> OverlayReady[Floating Bubble Rendered]
+```
+*Figure 1: Global Application Security & Verification Lifecycle*
 
-<p align="center">
-  <img src="docs/diagrams/autofill_pipeline.png" width="650" alt="Autofill Pipeline Diagram" /><br>
-  <em>Figure 2: Smart Accessibility Service Traversal and Matching Pipeline</em>
-</p>
+```mermaid
+sequenceDiagram
+    autonumber
+    actor User
+    participant Bubble as Floating Bubble Overlay
+    participant Service as SmartAccessibilityService
+    participant Parser as Screen Parser (Node Traversal)
+    participant ML as Local ML Engine (Language ID/Translate)
+    participant DB as SQLite database (Room)
+    participant Field as Target App Field
+    
+    User->>Bubble: Taps Overlay Bubble
+    Bubble->>Service: Trigger Autofill
+    Service->>Parser: findAllNodes(rootInActiveWindow)
+    Parser-->>Service: Return Editable/Clickable Node List
+    
+    Service->>DB: Fetch Active Profile Data
+    DB-->>Service: Return profile structure
+    
+    loop For each input field node
+        Service->>Service: Retrieve label/hint/ID
+        
+        opt Label language is non-English
+            Service->>ML: Detect Language & Translate label string
+            ML-->>Service: Return Translated English label
+        end
+        
+        Service->>Service: matchCustomField()
+        alt Custom/Section Match Success
+            Service->>Field: ACTION_SET_TEXT (custom value)
+        else Custom Match Fail
+            Service->>Service: matchStandardField()
+            alt Standard Match Success
+                Service->>Field: ACTION_SET_TEXT (standard value)
+            else Standard Match Fail
+                Service->>Field: No action (log debug)
+            end
+        end
+    end
+    
+    Service-->>User: Form populated notification
+```
+*Figure 2: Smart Accessibility Service Traversal and Matching Pipeline*
 
-<p align="center">
-  <img src="docs/diagrams/camera_ocr.png" width="650" alt="Camera OCR Diagram" /><br>
-  <em>Figure 3: CameraX Frame Capture and ML Kit Document Parsing Pipeline</em>
-</p>
+```mermaid
+graph LR
+    Viewfinder[Camera Viewfinder] --> Capture[Capture Button Clicked]
+    Capture --> FileSaved[Save Frame to Temp Directory]
+    FileSaved --> OCR[ML Kit TextRecognizer]
+    OCR --> Parser{Document Classifier}
+    
+    Parser --> |Matched Regex Patterns| IDCard[Parse ID card: Name, ID, DOB]
+    Parser --> |Matched School Keywords| Marksheet[Parse Marksheet: Subjects, Marks, Total]
+    
+    IDCard --> ResultScreen[Verify Results Dialog]
+    Marksheet --> ResultScreen
+    
+    ResultScreen --> |User Confirmed| CreateSection[Generate Profile Section]
+    CreateSection --> SaveDB[Update Room Database]
+    SaveDB --> MainScreen[Reload Dashboard]
+```
+*Figure 3: CameraX Frame Capture and ML Kit Document Parsing Pipeline*
 
 ---
 
@@ -186,13 +263,28 @@ The application uses local storage to ensure user data remains private.
 ---
 
 ## 📸 Screenshots & UI Flow
-Below is an outline of the user interface flow:
 
-| Onboarding Flow | Profile Management | Smart Form Filling |
-| :---: | :---: | :---: |
-| ![Onboarding UI](screenshots/onboarding.png) <br> *1. Multi-step features tour and basic user details setup* | ![Profiles Screen](screenshots/profiles.png) <br> *2. Profile dashboards, custom fields, and sections* | ![Floating Bubble Fill](screenshots/bubble_fill.png) <br> *3. Overlay bubble triggered on forms to auto-populate* |
+Below are the actual screenshots captured from the application interfaces:
 
-*(Note: If screenshots are not rendering, view the [Screenshots Directory Guide](file:///screenshots/README.md) to locate raw assets).*
+### 🚀 Onboarding & Info Setup Flow
+<p align="center">
+  <img src="docs/diagrams/onboarding_1.jpeg" width="200" alt="Onboarding Page 1" />
+  <img src="docs/diagrams/onboarding_2.jpeg" width="200" alt="Onboarding Page 2" />
+  <img src="docs/diagrams/onboarding_3.jpeg" width="200" alt="Onboarding Page 3" />
+  <img src="docs/diagrams/onboarding_4.jpeg" width="200" alt="Onboarding Page 4" />
+</p>
+
+### 🗂️ Profiles Pinned Dashboard & Custom Editing
+<p align="center">
+  <img src="docs/diagrams/profiles_1.jpeg" width="240" alt="Profiles Dashboard List" />
+  <img src="docs/diagrams/profile_2.jpeg" width="240" alt="Profile Editing Screen" />
+</p>
+
+### 💬 Floating Overlay Bubble & Autofill Action
+<p align="center">
+  <img src="docs/diagrams/bubble_fill_1.jpeg" width="240" alt="Form Field Active Bubble" />
+  <img src="docs/diagrams/bubble%20_fill_2.jpeg" width="240" alt="Overlay Profile Selector Dialogue" />
+</p>
 
 ---
 

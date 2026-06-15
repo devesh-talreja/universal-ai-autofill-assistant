@@ -12,8 +12,12 @@ When you launch the app for the first time, you are guided through a multi-step 
 2. **"My Info" Generation:** This creates your primary **"My Info"** profile. It has a special pinned status on your dashboard with a unique gradient border.
 
 <p align="center">
-  <img src="diagrams/system_lifecycle.png" width="500" alt="Security Setup & Onboarding Flow" /><br>
-  <em>Figure 1: Application Initialization, Onboarding, and Lock Screen Lifecycle</em>
+  <img src="diagrams/onboarding_1.jpeg" width="180" alt="Onboarding Page 1" />
+  <img src="diagrams/onboarding_2.jpeg" width="180" alt="Onboarding Page 2" />
+  <img src="diagrams/onboarding_3.jpeg" width="180" alt="Onboarding Page 3" />
+  <img src="diagrams/onboarding_4.jpeg" width="180" alt="Onboarding Page 4" />
+  <br>
+  <em>Figure 1: Onboarding Flow and Basic Setup Screen Sequences</em>
 </p>
 
 ### Security Configurations
@@ -39,6 +43,13 @@ For details that do not fit in the standard fields:
 2. Tap **Add Custom Field** to create a simple key-value row (e.g. `linkedinUrl` ➔ `linkedin.com/in/user`).
 3. Tap **Add Section** to create a grouped block of fields (e.g. creating an "Academic Record" group containing fields for `Roll Number`, `GPA`, and `Major`).
 
+<p align="center">
+  <img src="diagrams/profiles_1.jpeg" width="240" alt="Profiles List Screen" />
+  <img src="diagrams/profile_2.jpeg" width="240" alt="Edit Profile Dialog Screen" />
+  <br>
+  <em>Figure 2: Profile Dashboard Interface and Custom Section Fields Editor</em>
+</p>
+
 ---
 
 ## 📷 3. Camera Document Scanner (OCR)
@@ -53,11 +64,6 @@ To skip typing long numbers or transcript lists, use the built-in scanner:
    * **If standard ID Card:** Automatically creates section labels and values for Name, ID numbers, and DOB.
    * **If Marksheet:** Scans rows, subjects, and grades, compiling them into a tabular list.
 6. A verification card will display the parsed data. Adjust any text box values if the scan had minor OCR errors, and select **"Use Data"** to import the new section into your profile.
-
-<p align="center">
-  <img src="diagrams/camera_ocr.png" width="500" alt="OCR Scanner Flow" /><br>
-  <em>Figure 2: CameraX Capture and Google ML Kit OCR Classification Pipeline</em>
-</p>
 
 ---
 
@@ -77,8 +83,10 @@ The floating bubble interface allows you to automate form-filling:
 4. The service will traverse the layout tree, translate the labels if the form is in a regional language, match inputs against your profile, and fill the fields.
 
 <p align="center">
-  <img src="diagrams/autofill_pipeline.png" width="500" alt="Smart Overlay Autofill Process" /><br>
-  <em>Figure 3: Accessibility Traversal, Translation, and Form-Filling Engine Pipeline</em>
+  <img src="diagrams/bubble_fill_1.jpeg" width="240" alt="Active Bubble Overlay" />
+  <img src="diagrams/bubble%20_fill_2.jpeg" width="240" alt="Profiles Selector Overlay Dialogue" />
+  <br>
+  <em>Figure 3: Form Filling Overlay Trigger and Profile Selection Popup Dialog</em>
 </p>
 
 ### Switching Profiles on the Fly
