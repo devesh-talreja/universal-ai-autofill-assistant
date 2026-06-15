@@ -6,34 +6,40 @@ This document outlines the roles, responsibilities, and specific component contr
 
 ## 👥 Division of Responsibilities
 
-### Member 1: [Member 1 Name] (Lead & Core Services)
-* **Role:** Lead Software Engineer & Integration Specialist.
-* **Core Responsibilities:**
-  * Core development of `SmartAccessibilityService` layout tree scraping and text-matching integrations.
-  * Implementation of the floating bubble overlay window, layout configuration files, and focus listeners.
-  * Creation of the `AiFillTileService` Quick Settings tile interface.
-  * Orchestration of lifecycle scopes, thread dispatching, and memory profiling.
+### Member 1: Pushpraj Singhal (Core)
 
-### Member 2: [Member 2 Name] (Frontend & UX)
-* **Role:** UI/UX Engineer.
-* **Core Responsibilities:**
-  * Development of the main Compose interfaces, theme files, and color palette definitions (`Theme.kt`).
-  * Design of the 4-screen Onboarding Flow (`OnboardingActivity`) with feature previews and onboarding SVGs.
-  * Creation of the User Info collection screen (`UserInfoActivity`) and configuration spinners.
-  * Design of dashboard dialog overlays, bottom sheets, navigation menus, and profile detail screens.
+- **Role:** Core Engineer & System Integration Specialist.
+- **Core Responsibilities:**
+  - Maintained `MainActivity.kt` — primary navigation host and MVVM architecture via `ProfileViewModel`.
+  - Setup of Room Database (`AppDatabase.kt`), profile data models (`UserProfile.kt`, `UserProfileDao.kt`), and JSON type converters.
+  - Build configuration — `build.gradle.kts`, `settings.gradle.kts`, `gradle.properties`.
 
-### Member 3: [Member 3 Name] (Backend, Storage & ML Integration)
-* **Role:** Backend and Machine Learning Engineer.
-* **Core Responsibilities:**
-  * Setting up the local Room Database architecture, custom Type Converters (`CustomFieldsConverter`), and profile entities (`UserProfile`).
-  * Integration of Google ML Kit libraries for OCR Document Recognition, Language Identification, and Offline Translators.
-  * Development of regex parsers for document credentials (e.g. Passports, ID cards) and marksheet transcript tables.
-  * Construction of profile JSON serialization utilities for import/export capabilities.
+---
 
-### Member 4: [Member 4 Name] (Security, QA & Release Specialist)
-* **Role:** Security and Quality Assurance Engineer.
-* **Core Responsibilities:**
-  * Development of the `PinManager` authentication engine, biometric prompts, and keypad validation.
-  * Implementation of lockout logic and timeout configurations.
-  * Integration of security measures: root detection checks, system screenshot blocks (`FLAG_SECURE`), and clipboard auto-clearing hooks (`CopyReceiver`).
-  * Compilation of the QA test suite, manual testing on Android 16, release APK signing, and repository documentation.
+### Member 2: Vinay (Frontend & UX)
+
+- **Role:** UI/UX Engineer.
+- **Core Responsibilities:**
+  - Design of the multi-screen Onboarding Flow (`OnboardingActivity.kt`) and Splash screen (`SplashActivity.kt`) with animated branding.
+  - Development of theme files and color palette definitions (`Theme.kt`, `Color.kt`, `Type.kt`).
+  - Design of floating bubble layout, profile selector popup, and profile list item XML layouts.
+
+---
+
+### Member 3: Samyak (Camera, Profile & ML Integration)
+
+- **Role:** Frontend Engineer & Machine Learning Integration Specialist.
+- **Core Responsibilities:**
+  - Development of `CameraActivity.kt` — document scanning and Google ML Kit OCR for auto-filling from ID cards.
+  - Creation of the User Info screen (`UserInfoActivity.kt`) — profile creation, custom fields, and section management.
+  - Implementation of the Privacy Policy screen (`PrivacyPolicyActivity.kt`) and autofill item layout.
+
+---
+
+### Member 4: Devesh (Backend Services, Security & QA)
+
+- **Role:** Backend Services, Security and Quality Assurance Engineer.
+- **Core Responsibilities:**
+  - Core development of `SmartAccessibilityService` — text-expansion engine, shortcut matching, and `SmartAutofillService` for credential auto-population.
+  - Development of `PinManager` authentication engine, `AiFillTileService` Quick Settings tile, and `QuickCopyService` clipboard service.
+  - Integration of security measures (`FLAG_SECURE`, root detection, `CopyReceiver`) and QA testing on Android 14/15/16.
