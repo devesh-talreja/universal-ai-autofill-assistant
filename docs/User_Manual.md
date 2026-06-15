@@ -11,6 +11,11 @@ When you launch the app for the first time, you are guided through a multi-step 
 1. **Onboarding Details:** Fill in your basic information: Name, Country, State, Gender, and Date of Birth.
 2. **"My Info" Generation:** This creates your primary **"My Info"** profile. It has a special pinned status on your dashboard with a unique gradient border.
 
+<p align="center">
+  <img src="diagrams/system_lifecycle.png" width="500" alt="Security Setup & Onboarding Flow" /><br>
+  <em>Figure 1: Application Initialization, Onboarding, and Lock Screen Lifecycle</em>
+</p>
+
 ### Security Configurations
 Because your profile stores sensitive data, you must establish a lock screen:
 1. **4-Digit PIN:** Set and confirm a PIN. This is stored in AES-256 encrypted storage.
@@ -49,6 +54,11 @@ To skip typing long numbers or transcript lists, use the built-in scanner:
    * **If Marksheet:** Scans rows, subjects, and grades, compiling them into a tabular list.
 6. A verification card will display the parsed data. Adjust any text box values if the scan had minor OCR errors, and select **"Use Data"** to import the new section into your profile.
 
+<p align="center">
+  <img src="diagrams/camera_ocr.png" width="500" alt="OCR Scanner Flow" /><br>
+  <em>Figure 2: CameraX Capture and Google ML Kit OCR Classification Pipeline</em>
+</p>
+
 ---
 
 ## 💬 4. Smart Overlay & Form Filling
@@ -65,6 +75,11 @@ The floating bubble interface allows you to automate form-filling:
 2. Click on the first form input field to focus it.
 3. Tap the **Floating Bubble**.
 4. The service will traverse the layout tree, translate the labels if the form is in a regional language, match inputs against your profile, and fill the fields.
+
+<p align="center">
+  <img src="diagrams/autofill_pipeline.png" width="500" alt="Smart Overlay Autofill Process" /><br>
+  <em>Figure 3: Accessibility Traversal, Translation, and Form-Filling Engine Pipeline</em>
+</p>
 
 ### Switching Profiles on the Fly
 * **Long-press the floating bubble** to open the Profile Selector. A popup will list all your profiles. Tap a profile to switch context and fill the form using that profile's details.
