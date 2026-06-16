@@ -301,12 +301,28 @@ The QA process comprises:
 ## 👥 Team & Responsibilities
 This is a 4-member academic team project:
 
-* **[Member 1 Name] (Lead & Integration):** Designed the core Accessibility service parsing engine, overlay window interactions, and Quick Settings tile integrations.
-* **[Member 2 Name] (Frontend Developer):** Constructed the Jetpack Compose pages, onboarding flow widgets, theme configurations, and animations.
-* **[Member 3 Name] (Backend & Storage):** Implemented the local Room SQLite bindings, security modules (Biometrics, PIN verified storage), and local OCR/Language wrappers.
-* **[Member 4 Name] (QA & Deployment Specialist):** Created the test scenarios, checked layouts across device API targets, handled release building, and consolidated documentation.
+# 👥 Division of Responsibilities
 
-*To review development guidelines and Git configurations, read the [Team Workflows](file:///team/workflow.md) and [Commit Plan](file:///team/commit_plan.md).*
+## Pushpraj Singhal (Core Engineer & System Integration)
+- Managed app architecture (MVVM) and navigation.
+- Developed Room Database, data models, and JSON converters.
+- Handled Gradle build configuration and project setup.
+
+## Vinay (Frontend & UI/UX)
+- Designed onboarding and splash screens with animations.
+- Developed app themes, colors, and typography.
+- Created floating bubble, profile selector, and profile list UI layouts.
+
+## Samyak (Camera, Profile & ML Integration)
+- Built document scanning with Google ML Kit OCR.
+- Developed profile creation and management screens.
+- Implemented Privacy Policy and autofill-related UI components.
+
+## Devesh (Backend Services, Security & QA)
+- Developed autofill, text expansion, and accessibility services.
+- Built authentication, Quick Settings tile, and clipboard services.
+- Integrated security features and conducted Android 14–16 testing.
+
 
 ---
 
