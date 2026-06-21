@@ -299,26 +299,23 @@ The QA process comprises:
 ---
 
 ## 👥 Team & Responsibilities
-This is a 4-member academic team project:
 
-# 👥 Division of Responsibilities
-
-## Pushpraj Singhal (Core Engineer & System Integration)
+### Pushpraj Singhal (Core Engineer & System Integration)
 - Managed app architecture (MVVM) and navigation.
 - Developed Room Database, data models, and JSON converters.
 - Handled Gradle build configuration and project setup.
 
-## Vinay (Frontend & UI/UX)
+### Vinay (Frontend & UI/UX)
 - Designed onboarding and splash screens with animations.
 - Developed app themes, colors, and typography.
 - Created floating bubble, profile selector, and profile list UI layouts.
 
-## Samyak (Camera, Profile & ML Integration)
+### Samyak (Camera, Profile & ML Integration)
 - Built document scanning with Google ML Kit OCR.
 - Developed profile creation and management screens.
 - Implemented Privacy Policy and autofill-related UI components.
 
-## Devesh (Backend Services, Security & QA)
+### Devesh (Backend Services, Security, QA & Documentation)
 - Developed autofill, text expansion, and accessibility services.
 - Built authentication, Quick Settings tile, and clipboard services.
 - Integrated security features and conducted Android 14–16 testing.
